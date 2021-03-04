@@ -10,3 +10,27 @@ installed or the current directory is not a git repo.
 if `HOME` is not set
 - `{{ _date_str }}` - the current date in `yyyymmdd` format
 - `{{ _time_str }}` - the current date/time in `yyyymmddHHMMSS` format
+
+
+## Installation
+
+```bash
+pip install tiny-render
+```
+
+Sample Code
+
+```python
+from tiny_render import Render
+
+with open(os.path.join("/tmp","test.txt"), 'w') as f:
+    f.write("gitsha: {{_gitsha}}, hello {{key}}")
+
+params = {"key": "world"}
+
+r = Render("/tmp")
+
+r.go("test.txt", **params)
+
+# the output is "gitsha: xxxxxxx, hello world"
+```
