@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "tiny-render"
-version = "0.1.1"
+version = "0.1.2"
 description = "A simple wrapper of Jinja2 to render text based file, eg. SQL code and YAML files"
-authors = ["Zhong Dai <zhongdai@gmail.com>"]
+authors = ["Zhong Dai <zhongdai.au@gmail.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.6"
