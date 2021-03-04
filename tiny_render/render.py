@@ -5,15 +5,25 @@ import os
 import json
 import subprocess
 
+import jinja2
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
 from jinja2 import Template
 
+@jinja2.evalcontextfilter
+def getenv(eval_ctx, value, default=None):
+    result = os.environ.get(value, default)
+    if result is None:
+        raise Exception("can't find %s environnement variable" % value)
+    return result
+
 class Render(object):
     """A simple Jinja2 wrapper to provide the build-in variables
-    `_gitsha` - git short sha
-    `_date_str` - yyyymmdd string
-    `_time_str` - yyyymmddHHMMSS string
+    {{ _gitsha }} - git short sha
+    {{ _date_str }} - yyyymmdd string
+    {{ _time_str }} - yyyymmddHHMMSS string
+    {{ 'HOME' | getenv }} - to render the environment variable
+
     """
     def __init__(self, template_dir: str):
         """Init the Render by giving a directory contains your template
@@ -23,14 +33,20 @@ class Render(object):
 
         self._dir = template_dir
         self.env = Environment(loader=FileSystemLoader(template_dir))
+        self.env.filters["getenv"] = getenv
 
     def __repr__(self):
         return f"Render({self._dir})"
 
     @staticmethod
     def get_shortsha():
-        short_hash = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
-        short_hash = str(short_hash, "utf-8").strip()
+        try:
+            # in case git is not installed or the current direct is not a git repo
+            # return a None instead of raise Exception
+            short_hash = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
+            short_hash = str(short_hash, "utf-8").strip()
+        except:
+            short_hash = None
 
         return short_hash
 
