@@ -16,5 +16,6 @@ publish: build ## publish to PyPi
 
 clean: ## delete build temp files
 	rm -rf .pytest_cache
+	rm -rf dist/
 	find . | grep -E "(__pycache__|\.pyc|\.pyo$\)" | xargs rm -rf
 	find . | grep -E "(\.ipynb_checkpoints$\)" | xargs rm -rf
