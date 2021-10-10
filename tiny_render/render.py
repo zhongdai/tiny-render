@@ -8,7 +8,6 @@ import subprocess
 import jinja2
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
-from jinja2 import Template
 
 @jinja2.evalcontextfilter
 def getenv(eval_ctx, value, default=None):
