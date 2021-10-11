@@ -38,7 +38,7 @@ class Render(object):
         return f"Render({self._dir})"
 
     @staticmethod
-    def get_shortsha():
+    def get_shortsha() -> str:
         try:
             # in case git is not installed or the current direct is not a git repo
             # return a None instead of raise Exception
