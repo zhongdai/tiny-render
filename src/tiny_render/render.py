@@ -8,7 +8,6 @@ import subprocess
 import jinja2
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
-from jinja2 import Template
 
 @jinja2.evalcontextfilter
 def getenv(eval_ctx, value, default=None):
@@ -39,7 +38,7 @@ class Render(object):
         return f"Render({self._dir})"
 
     @staticmethod
-    def get_shortsha():
+    def get_shortsha() -> str:
         try:
             # in case git is not installed or the current direct is not a git repo
             # return a None instead of raise Exception
