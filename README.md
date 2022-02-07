@@ -1,10 +1,14 @@
 # Tiny Render
 
+[![Unit Testing](https://github.com/zhongdai/tiny-render/actions/workflows/tests.yml/badge.svg)](https://github.com/zhongdai/tiny-render/actions/workflows/tests.yml)
+[![Deployment](https://github.com/zhongdai/tiny-render/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/zhongdai/tiny-render/actions/workflows/build-any-publish.yml)
+[![PyPI version](https://badge.fury.io/py/tiny-render.svg)](https://badge.fury.io/py/tiny-render)
+
 *Version: 0.2.0*
 
 This is a very simple wrapper for `Jinja2` by providing few built-in variables.
 
-Variables,
+Additional variables for the `Template`,
 
 - `{{ _gitsha }}` - will be the shortsha for `git` hash, the value will be `None` if `git` is not
 installed or the current directory is not a git repo.
