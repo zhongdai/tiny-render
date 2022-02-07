@@ -1,6 +1,6 @@
 # Tiny Render
 
-*Version: 0.1.5*
+*Version: 0.2.0*
 
 This is a very simple wrapper for `Jinja2` by providing few built-in variables.
 
