@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-
-from datetime import datetime
-import os
 import json
+import os
 import subprocess
+from datetime import datetime
 
 import jinja2
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
+
 
 @jinja2.evalcontextfilter
 def getenv(eval_ctx, value, default=None):
@@ -15,6 +15,7 @@ def getenv(eval_ctx, value, default=None):
     if result is None:
         raise Exception("can't find %s environnement variable" % value)
     return result
+
 
 class Render(object):
     """A simple Jinja2 wrapper to provide the build-in variables
@@ -24,9 +25,9 @@ class Render(object):
     {{ 'HOME' | getenv }} - to render the environment variable
 
     """
+
     def __init__(self, template_dir: str):
-        """Init the Render by giving a directory contains your template
-        """
+        """Init the Render by giving a directory contains your template"""
         if not os.path.isdir(template_dir):
             raise ValueError(f"{template_dir} is not a valid directory")
 
@@ -42,7 +43,9 @@ class Render(object):
         try:
             # in case git is not installed or the current direct is not a git repo
             # return a None instead of raise Exception
-            short_hash = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
+            short_hash = subprocess.check_output(
+                ["git", "rev-parse", "--short", "HEAD"]
+            )
             short_hash = str(short_hash, "utf-8").strip()
         except:
             short_hash = None
@@ -50,8 +53,7 @@ class Render(object):
         return short_hash
 
     def go(self, template: str, *args, **kwargs) -> str:
-        """ Do the actual rendering process, and print the renderred content
-        """
+        """Do the actual rendering process, and print the renderred content"""
         current_date = datetime.now()
         template = self.env.get_template(template)
         kwargs["_gitsha"] = Render.get_shortsha()
